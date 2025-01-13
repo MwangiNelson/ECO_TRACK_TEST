@@ -66,7 +66,12 @@ def authenticate_user():
     id_token = query_params.get("token", [None])[0]
 
     if not id_token:
+        st.error("No token provided in the URL.")
         redirect_to_login()
+    
+    # Log the received token (ensure not to expose sensitive tokens in production)
+    st.write("Received ID Token:", id_token)
+
     # Validate the token format before verification
     if id_token.count(".") != 2:
         st.error("Invalid or malformed token.")
@@ -74,9 +79,11 @@ def authenticate_user():
 
     user_data = verify_firebase_token(id_token)
     if not user_data:
+        st.error("Token verification failed.")
         redirect_to_login()
 
     return user_data
+
 
 
 # Authenticate user
