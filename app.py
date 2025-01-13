@@ -70,7 +70,7 @@ def authenticate_user():
         redirect_to_login()
     
     # Log the received token (ensure not to expose sensitive tokens in production)
-    st.write("Received ID Token:", id_token)
+    # st.write("Received ID Token:", id_token)
 
     # Validate the token format before verification
     if id_token.count(".") != 2:
